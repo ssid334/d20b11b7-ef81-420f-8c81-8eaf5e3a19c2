@@ -73,9 +73,6 @@ resource "google_cloudfunctions_function" "function_start_vm" {
     LABEL_KEY   = var.label_key
     LABEL_VALUE = var.label_value
   }
-  //depends_on = [
-  //  google_service_account.sa
-  //]
 }
 
 resource "google_cloudfunctions_function" "function_stop_vm" {
@@ -102,9 +99,6 @@ resource "google_cloudfunctions_function" "function_stop_vm" {
     LABEL_KEY   = var.label_key
     LABEL_VALUE = var.label_value
   }
-  //depends_on = [
-  //  google_service_account.sa
-  //]
 }
 
 resource "google_cloud_scheduler_job" "job_stop" {
