@@ -6,6 +6,20 @@ provider "google" {
 }
 
 
+resource "google_project_service" "project" {
+  project = var.project
+
+  for_each = toset([
+        "appengine.googleapis.com"
+        ,"cloudfunctions.googleapis.com"
+        ,"pubsub.googleapis.com"
+        ,"cloudscheduler.googleapis.com"
+  ])
+
+  service = each.key
+}
+
+
 // A single Compute Engine instance
 resource "google_compute_instance" "default" {
  name         = "vm-autodisabletest"
@@ -26,6 +40,7 @@ resource "google_compute_instance" "default" {
      // Include this section to give the VM an external ip address
    }
  }
+ depends_on = [google_project_service.project]
 }
 
 
