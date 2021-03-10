@@ -1,9 +1,9 @@
 variable "project" {
-  default = "vmstartstop"
+  default = "vmenabletest"
 }
 
 variable "credential_file" {
-  default = "vmstartstop-5684d5ebc0fe.json"
+  default = "vmenabletest-c2acd66b4ffe.json"
 }
 
 variable "pattern_stop" {

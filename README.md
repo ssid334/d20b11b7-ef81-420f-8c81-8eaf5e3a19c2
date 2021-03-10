@@ -5,7 +5,7 @@ and automatic start at 8:00 CET.
 
 To run the script:
 1. Clone this repository (obviously)
-1. Create new project under: https://console.cloud.google.com/projectcreate
+1. Create new project under: https://console.cloud.google.com/projectcreate (optional if you have one already)
 1. Create service account for the newly created project, here: https://console.cloud.google.com/apis/credentials/serviceaccountkey
    (Pssst: I used 'owner' role to simplify things as this is PoC only)
 1. from the above account creation, download file in JSON format

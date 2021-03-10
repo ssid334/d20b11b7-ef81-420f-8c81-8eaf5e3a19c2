@@ -10,7 +10,7 @@ resource "google_project_service" "project" {
   project = var.project
 
   for_each = toset([
-        "appengine.googleapis.com"
+         "appengine.googleapis.com"
         ,"cloudfunctions.googleapis.com"
         ,"pubsub.googleapis.com"
         ,"cloudscheduler.googleapis.com"
@@ -19,6 +19,7 @@ resource "google_project_service" "project" {
   ])
 
   service = each.key
+  disable_dependent_services=true
 }
 
 
