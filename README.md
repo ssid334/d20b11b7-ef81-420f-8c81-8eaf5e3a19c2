@@ -12,10 +12,8 @@ To run the script:
 1. Save the downloaded file into disk
 1. Edit variables.tf file, set "credential_file" to point to the downloaded JSON file (needs to be locally)
 1. Edit variables.tf to set the variable called: "project" to the name of the created project. (The value can be easily found in the JSON file too!)
-1. Initialize plugins:
-> terraform init
-1. Run it: 
-> terraform apply 
+1. Initialize plugins: `terraform init`
+1. Run it: `terraform apply`
 
 
 
