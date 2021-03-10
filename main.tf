@@ -27,10 +27,13 @@ resource "google_app_engine_application" "app" {
   location_id = "us-central"
 }
 
+resource "random_id" "instance_id" {
+ byte_length = 8
+}
 
-// A single Compute Engine instance
+
 resource "google_compute_instance" "default" {
- name         = "vm-autodisabletest"
+ name         = "vm-autodisabletest-${random_id.instance_id.hex}"
  machine_type = "f1-micro"
  zone         = "us-central1-c"
  labels       = {"instance-scheduler" = var.label_value }
