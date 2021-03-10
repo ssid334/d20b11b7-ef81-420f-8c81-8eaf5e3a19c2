@@ -14,9 +14,17 @@ resource "google_project_service" "project" {
         ,"cloudfunctions.googleapis.com"
         ,"pubsub.googleapis.com"
         ,"cloudscheduler.googleapis.com"
+	,"cloudresourcemanager.googleapis.com"
+	,"compute.googleapis.com"
   ])
 
   service = each.key
+}
+
+
+resource "google_app_engine_application" "app" {
+  project     = var.project
+  location_id = "us-central"
 }
 
 
@@ -57,11 +65,12 @@ resource "google_storage_bucket_object" "archive" {
 resource "google_pubsub_topic" "topic_start" {
   // name = "instance-scheduler-topic"
   name = "startvm-topic"
+  depends_on = [google_project_service.project]
 }
 
 resource "google_pubsub_topic" "topic_stop" {
-  // name = "instance-scheduler-topic"
   name = "stopvm-topic"
+  depends_on = [google_project_service.project]
 }
 
 resource "google_cloudfunctions_function" "function_start_vm" {
@@ -88,6 +97,7 @@ resource "google_cloudfunctions_function" "function_start_vm" {
     LABEL_KEY   = var.label_key
     LABEL_VALUE = var.label_value
   }
+ depends_on = [google_project_service.project]
 }
 
 resource "google_cloudfunctions_function" "function_stop_vm" {
@@ -114,6 +124,7 @@ resource "google_cloudfunctions_function" "function_stop_vm" {
     LABEL_KEY   = var.label_key
     LABEL_VALUE = var.label_value
   }
+ depends_on = [google_project_service.project]
 }
 
 resource "google_cloud_scheduler_job" "job_stop" {
@@ -127,6 +138,7 @@ resource "google_cloud_scheduler_job" "job_stop" {
     topic_name = google_pubsub_topic.topic_stop.id
     data       = base64encode("scheduler says stop")
   }
+ depends_on = [google_project_service.project]
 }
 
 resource "google_cloud_scheduler_job" "job_start" {
@@ -140,5 +152,6 @@ resource "google_cloud_scheduler_job" "job_start" {
     topic_name = google_pubsub_topic.topic_start.id
     data       = base64encode("scheduler says start")
   }
+ depends_on = [google_project_service.project]
 }
 
